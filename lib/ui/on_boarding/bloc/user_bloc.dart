@@ -1,0 +1,31 @@
+import 'package:ecommercer_app/app_urls.dart';
+import 'package:ecommercer_app/data/api_helper.dart';
+import 'package:ecommercer_app/ui/on_boarding/bloc/user_event.dart';
+import 'package:ecommercer_app/ui/on_boarding/bloc/user_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class UserBloc extends Bloc<UserEvent, UserState> {
+  ApiHelper apiHelper = ApiHelper();
+  UserBloc({required this.apiHelper}) : super(UserInitialState()) {
+    on<UserSignUpEvent>((event, emit) async {
+      emit(UserLoadingState());
+
+      try {
+        dynamic data = await apiHelper.postApi(url: AppUrls.signUpUrl,mBodyParameters: {
+          "name" : event.name,
+          "mobile_number" : event.mobNo,
+          "email" : event.email,
+          "password" : event.password,
+
+        });
+        if (data["status"]) {
+          emit(UserSuccessState());
+        } else {
+          emit(UserFailureState(errorMsg: data["message"]));
+        }
+      } catch (e) {
+        emit(UserFailureState(errorMsg: e.toString()));
+      }
+    });
+  }
+}
