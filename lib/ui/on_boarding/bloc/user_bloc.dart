@@ -1,8 +1,10 @@
+import 'package:ecommercer_app/app_constants.dart';
 import 'package:ecommercer_app/app_urls.dart';
 import 'package:ecommercer_app/data/api_helper.dart';
 import 'package:ecommercer_app/ui/on_boarding/bloc/user_event.dart';
 import 'package:ecommercer_app/ui/on_boarding/bloc/user_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   ApiHelper apiHelper = ApiHelper();
@@ -29,8 +31,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserSignInEvent>((event, emit) async {
       emit(UserLoadingState());
       try{
-        dynamic mData =apiHelper.postApi(url: AppUrls.loginUrl);
+        dynamic mData =apiHelper.postApi(url: AppUrls.loginUrl,mBodyParameters: {
+          "email" : event.email,
+          "password" : event.password
+        });
         if(mData["status"]){
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString(AppConstants.USER_TOKEN, mData["tokan"]);
           emit(UserSuccessState());
         }
         else{
