@@ -9,7 +9,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc({required this.apiHelper}) : super(UserInitialState()) {
     on<UserSignUpEvent>((event, emit) async {
       emit(UserLoadingState());
-
       try {
         dynamic data = await apiHelper.postApi(url: AppUrls.signUpUrl,mBodyParameters: {
           "name" : event.name,
@@ -27,5 +26,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UserFailureState(errorMsg: e.toString()));
       }
     });
+    on<UserSignInEvent>((event, emit) async {
+      emit(UserLoadingState());
+      try{
+        dynamic mData =apiHelper.postApi(url: AppUrls.loginUrl);
+        if(mData["status"]){
+          emit(UserSuccessState());
+        }
+        else{
+          emit(UserFailureState(errorMsg: mData["message"]));
+        }
+      }catch(e){
+        emit(UserFailureState(errorMsg: e.toString()));
+      }
+
+
+    });
+
+
   }
 }

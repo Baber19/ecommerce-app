@@ -13,4 +13,6 @@ class UserSignUpEvent extends UserEvent {
     required this.name,
     required this.mobNo,
   });
+
+
 }
