@@ -4,12 +4,20 @@ class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DasboardPageState();
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DasboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold();
+    return Scaffold(
+      bottomNavigationBar: BottomAppBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+
+        onPressed: () {},
+        child: Icon(Icons.home, color: Colors.orangeAccent),
+      ),
+    );
   }
 }
