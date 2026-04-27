@@ -1,9 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:ecommercer_app/models/category_model.dart';
+import 'package:ecommercer_app/widgets/category_widget.dart';
 import 'package:flutter/material.dart';
 
 class NavHomePage extends StatelessWidget {
   NavHomePage({super.key});
+  
+  
 
   int selectedBannerIndex = 0;
   List<String> mBannerImages = [
@@ -25,11 +29,11 @@ class NavHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined,size: 35,)),
-                IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined,size: 35,)),
+                IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined,size: 25,)),
+                IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined,size: 25,)),
               ],
             ),
-            SizedBox(height: 30),
+          //  SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 15.0,right: 20),
               child: TextField(
@@ -39,7 +43,7 @@ class NavHomePage extends StatelessWidget {
                   ),
                   prefixIcon: Icon(Icons.search,size: 25,),
                   hintText: "Search...",
-                  hintStyle: TextStyle(color: Colors.grey,fontSize: 20),
+                  hintStyle: TextStyle(color: Colors.grey,fontSize: 15),
                   suffixIcon: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -54,11 +58,11 @@ class NavHomePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 15),
+            //SizedBox(height: 15),
             StatefulBuilder(
               builder: (context,sS) {
                 return SizedBox(
-                  height: 220,
+                  height: 190,
                   width: double.infinity,
                   child: Stack(
                     children: [
@@ -83,6 +87,7 @@ class NavHomePage extends StatelessWidget {
                         },
 
                         options: CarouselOptions(
+                          height: 220,
                           onPageChanged: (index, _) {
                             selectedBannerIndex=index;
                             sS((){});
@@ -95,15 +100,14 @@ class NavHomePage extends StatelessWidget {
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: SizedBox(
+                        child: Container(
+                        //  color: Colors.black,
                           height: 40,
                           child: DotsIndicator(
                             position: selectedBannerIndex.toDouble(),
                             dotsCount: mBannerImages.length,
                             animate: true,
                             decorator: DotsDecorator(
-
-
                               activeShape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(11),
                               ),
@@ -127,8 +131,10 @@ class NavHomePage extends StatelessWidget {
             ),
             SizedBox(height: 20,),
             ListView.builder(
-              itemCount: ,
+              scrollDirection: Axis.horizontal,
+              itemCount: mCategories.length,
                 itemBuilder: (_,index){
+                return CategoryWidget(categoryModel: mCategories[index]);
 
                 })
           ],
