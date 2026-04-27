@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 5),(){
-      Navigator.pushReplacementNamed(context, AppRoutes.Login_Route);
+      Navigator.pushReplacementNamed(context, AppRoutes.Dashboard_Route);
     });
   }
   @override

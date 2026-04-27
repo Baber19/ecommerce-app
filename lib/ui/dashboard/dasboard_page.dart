@@ -14,6 +14,9 @@ class _DashboardPageState extends State<DashboardPage> {
       bottomNavigationBar: BottomAppBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(51)
+        ),
 
         onPressed: () {},
         child: Icon(Icons.home, color: Colors.orangeAccent),
