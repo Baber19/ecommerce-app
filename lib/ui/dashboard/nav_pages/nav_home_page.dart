@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 
 class NavHomePage extends StatelessWidget {
   NavHomePage({super.key});
-  
-  
 
   int selectedBannerIndex = 0;
   List<String> mBannerImages = [
@@ -22,45 +20,57 @@ class NavHomePage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-
           children: [
             SizedBox(height: 30),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined,size: 25,)),
-                IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined,size: 25,)),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.notifications_outlined, size: 25),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.notifications_outlined, size: 25),
+                ),
               ],
             ),
-          //  SizedBox(height: 30),
+            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0,right: 20),
+              padding: const EdgeInsets.only(left: 15.0, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderSide: BorderSide.none
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none,
                   ),
-                  prefixIcon: Icon(Icons.search,size: 25,),
+                  fillColor: Color(0xfff6f6f6),
+                  prefixIcon: Icon(Icons.search, size: 25),
                   hintText: "Search...",
-                  hintStyle: TextStyle(color: Colors.grey,fontSize: 15),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
                   suffixIcon: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(height: 24,
-                          child: VerticalDivider(color: Colors.grey,width: 10,thickness: 1,)),
-                      SizedBox(width: 8,),
-                      Icon(Icons.filter_list)
-
+                      SizedBox(
+                        height: 24,
+                        child: VerticalDivider(
+                          color: Colors.grey,
+                          width: 10,
+                          thickness: 1,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Icon(Icons.filter_list),
+                      SizedBox(width: 8),
                     ],
                   ),
                 ),
               ),
             ),
 
-            //SizedBox(height: 15),
+            SizedBox(height: 25),
             StatefulBuilder(
-              builder: (context,sS) {
+              builder: (context, sS) {
                 return SizedBox(
                   height: 190,
                   width: double.infinity,
@@ -70,7 +80,9 @@ class NavHomePage extends StatelessWidget {
                         itemCount: mBannerImages.length,
                         itemBuilder: (_, index, _) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 11.0,
+                            ),
                             child: Container(
                               height: 220,
                               width: double.infinity,
@@ -89,9 +101,9 @@ class NavHomePage extends StatelessWidget {
                         options: CarouselOptions(
                           height: 220,
                           onPageChanged: (index, _) {
-                            selectedBannerIndex=index;
-                            sS((){});
-                            },
+                            selectedBannerIndex = index;
+                            sS(() {});
+                          },
                           autoPlayCurve: Curves.slowMiddle,
                           viewportFraction: 1,
                           autoPlay: true,
@@ -101,7 +113,7 @@ class NavHomePage extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                        //  color: Colors.black,
+                          //  color: Colors.black,
                           height: 40,
                           child: DotsIndicator(
                             position: selectedBannerIndex.toDouble(),
@@ -127,16 +139,46 @@ class NavHomePage extends StatelessWidget {
                     ],
                   ),
                 );
-              }
+              },
             ),
-            SizedBox(height: 20,),
-            ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: mCategories.length,
-                itemBuilder: (_,index){
-                return CategoryWidget(categoryModel: mCategories[index]);
-
-                })
+            SizedBox(height: 40),
+            Container(
+              height: 100,
+              child: ListView.builder(
+                // padding: EdgeInsets.symmetric(horizontal: 5),
+                scrollDirection: Axis.horizontal,
+                itemCount: mCategories.length,
+                itemBuilder: (_, index) {
+                  return CategoryWidget(categoryModel: mCategories[index]);
+                },
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Special For You",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
+                  Text(
+                    "See all",
+                    style: TextStyle(color: Colors.grey, fontSize: 15),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (_, index) {},
+              ),
+            ),
           ],
         ),
       ),

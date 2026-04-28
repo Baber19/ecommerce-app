@@ -21,14 +21,22 @@ List<CategoryModel> mCategories = [
   ),
   CategoryModel(
     catTitle: "Women's Fashion",
-    catImage: "https://maison-novague.com/wp-content/uploads/2024/07/classic-fashion-styleTH2.jpg",
+    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnDwzDBvZLhMM7HfWhB9-LrZfJ-OxaUg321Q&s",
   ),
   CategoryModel(
     catTitle: "Jewelery",
-    catImage: "https://i.pinimg.com/736x/4b/54/29/4b5429295bacf9904171a695c5bd616e.jpg",
+    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQepTfkO-SMGwTD-OPOi1ZJ5LD3qCWKdp2hwQ&s",
   ),
   CategoryModel(
-    catTitle: "Mens Fashion",
-    catImage: "https://i.pinimg.com/474x/56/5d/18/565d1841748d24275f5707d6c7043079.jpg",
+    catTitle: "Men's Fashion",
+    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzs3u51Fh2RHYmeafoZ9jA2qCB-iqGDOHcRw&s",
+  ),
+  CategoryModel(
+    catTitle: "Women's Fashion",
+    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnDwzDBvZLhMM7HfWhB9-LrZfJ-OxaUg321Q&s",
+  ),
+  CategoryModel(
+    catTitle: "Beauty",
+    catImage: "https://d2ati23fc66y9j.cloudfront.net/category-pages/sub_category-174021874143.jpg",
   ),
 ];

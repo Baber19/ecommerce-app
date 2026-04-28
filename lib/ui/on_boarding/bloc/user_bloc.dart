@@ -47,7 +47,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UserFailureState(errorMsg: e.toString()));
       }
 
-
     });
 
 

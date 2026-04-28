@@ -23,7 +23,6 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navPages[selectedNavIndex],
-      backgroundColor: Colors.grey.shade100,
       bottomNavigationBar: BottomAppBar(
         notchMargin: 5,
         elevation: 10,
