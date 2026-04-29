@@ -28,7 +28,7 @@ class CategoryWidget extends StatelessWidget {
           ),
           SizedBox(height: 6),
           SizedBox(
-            width: 70,
+            width: 60,
             child: Text(
               categoryModel.catTitle,
               textAlign: TextAlign.center,

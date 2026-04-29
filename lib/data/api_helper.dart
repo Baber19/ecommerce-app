@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:ecommercer_app/app_constants.dart';
 import 'package:ecommercer_app/data/api_exceptions.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiHelper {
   getApi({required String url}) async {
@@ -18,14 +20,25 @@ class ApiHelper {
   Future<dynamic> postApi({
     required String url,
     Map<String, dynamic>? mBodyParameters,
+    Map<String, String>? mHeaders,
+    bool isAuth=false
+
   }) async {
+    if(!isAuth){
+      mHeaders??={};
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+     String token = prefs.getString(AppConstants.USER_TOKEN) ?? "";
+     mHeaders["Authorization"] = "Bearer $token";
+
+
+    }
     try {
       http.Response res = await http.post(
         Uri.parse(url),
-        headers: {
-          "Content-Type": "application/json", // 🔥 IMPORTANT
-        },
         body: mBodyParameters != null ? jsonEncode(mBodyParameters) : null,
+        headers: mHeaders
+
+
       );
       return returnResponse(res);
     } on SocketException catch (e) {

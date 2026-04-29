@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           "email" : event.email,
           "password" : event.password,
 
-        });
+        },isAuth: true);
         if (data["status"]) {
           emit(UserSuccessState());
         } else {
