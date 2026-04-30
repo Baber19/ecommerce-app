@@ -15,20 +15,15 @@ class ProductBloc extends Bloc<ProductEvent,ProductState>{
     on<FetchProductEvent>((event,emit) async{
       emit(ProductLoadingState());
       try {
-        /// 🔑 Token get karo (same as user login)
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String? token = prefs.getString(AppConstants.USER_TOKEN);
 
-        /// 🔥 API hit
         dynamic data = await apiHelper.postApi(
           url: AppUrls.getProductsUrl,
-          mBodyParameters: {
-             "category_id": 2
-          },
 
         );
 
-        if (data["status"]) {
+        if (data["status"] == true && data["data"] != null) {
 
           List<ProductModel> products = (data["data"] as List)
               .map((e) => ProductModel.fromJson(e))
