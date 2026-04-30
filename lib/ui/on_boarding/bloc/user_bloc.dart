@@ -34,7 +34,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         dynamic mData =apiHelper.postApi(url: AppUrls.loginUrl,mBodyParameters: {
           "email" : event.email,
           "password" : event.password
-        });
+        },
+        isAuth: true);
         if(mData["status"]){
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString(AppConstants.USER_TOKEN, mData["tokan"]);
