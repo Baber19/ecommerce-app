@@ -24,7 +24,7 @@ class _NavHomePageState extends State<NavHomePage> {
     super.initState();
 
     context.read<ProductBloc>().add(FetchProductEvent());
-    print("EVENT CALLED");
+
   }
 
   List<String> mBannerImages = [
@@ -162,7 +162,7 @@ class _NavHomePageState extends State<NavHomePage> {
               },
             ),
             SizedBox(height: 40),
-            Container(
+            SizedBox(
               height: 100,
               child: ListView.builder(
                  padding: EdgeInsets.symmetric(horizontal: 5),

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiHelper {
+
   getApi({required String url}) async {
     try {
       http.Response res = await http.get(Uri.parse(url));
@@ -32,6 +33,9 @@ class ApiHelper {
 
 
     }
+    print("POST URL: $url");
+    print("Headers: $mHeaders");
+    print("Body: $mBodyParameters");
     try {
       http.Response res = await http.post(
         Uri.parse(url),

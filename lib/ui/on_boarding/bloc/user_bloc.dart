@@ -31,7 +31,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserSignInEvent>((event, emit) async {
       emit(UserLoadingState());
       try{
-        dynamic mData =apiHelper.postApi(url: AppUrls.loginUrl,mBodyParameters: {
+        dynamic mData =await apiHelper.postApi(url: AppUrls.loginUrl,mBodyParameters: {
           "email" : event.email,
           "password" : event.password
         },
