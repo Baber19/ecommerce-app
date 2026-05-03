@@ -50,7 +50,7 @@ class LoginPage extends StatelessWidget {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: "Email",
+                  labelText: "E-mail",
                   hintText: "Enter your e-mail here..",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(21),
