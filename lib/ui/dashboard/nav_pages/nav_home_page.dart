@@ -4,7 +4,6 @@ import 'package:ecommercer_app/models/category_model.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_bloc.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_event.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_state.dart';
-import 'package:ecommercer_app/widgets/category_widget.dart';
 import 'package:ecommercer_app/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -162,20 +161,6 @@ class _NavHomePageState extends State<NavHomePage> {
               },
             ),
             SizedBox(height: 40),
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                 padding: EdgeInsets.symmetric(horizontal: 5),
-                scrollDirection: Axis.horizontal,
-                itemCount: mCategories.length,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:2.0),
-                    child: CategoryWidget(categoryModel: mCategories[index]),
-                  );
-                },
-              ),
-            ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),

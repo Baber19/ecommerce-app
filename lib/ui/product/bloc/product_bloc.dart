@@ -10,7 +10,7 @@ import '../../../app_urls.dart';
 import '../../../models/product_model.dart';
 
 class ProductBloc extends Bloc<ProductEvent,ProductState>{
-  ApiHelper apiHelper;
+  APIHelper apiHelper;
   ProductBloc({required this.apiHelper}) : super(ProductInitialState()){
     on<FetchProductEvent>((event,emit) async{
       emit(ProductLoadingState());
@@ -18,7 +18,7 @@ class ProductBloc extends Bloc<ProductEvent,ProductState>{
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String? token = prefs.getString(AppConstants.USER_TOKEN);
 
-        dynamic data = await apiHelper.postApi(
+        dynamic data = await apiHelper.postAPI(
           url: AppUrls.getProductsUrl,
 
         );

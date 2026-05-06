@@ -1,42 +1,56 @@
-class CategoryModel{
-  String catTitle;
-  String catImage;
+class CatDataModel {
+  bool? status;
+  String? message;
+  List<CatModel>? data;
 
-  CategoryModel({required this.catTitle,required this.catImage});
+  CatDataModel({this.status, this.message, this.data});
 
-  // factory CategoryModel.fromMap(Map<String,dynamic> json){
-  //   return CategoryModel(catTitle: catTitle, catImage: catImage)
-  // }
+  CatDataModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    if (json['data'] != null) {
+      data = <CatModel>[];
+      json['data'].forEach((v) {
+        data!.add(new CatModel.fromJson(v));
+      });
+    }
+  }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-List<CategoryModel> mCategories = [
-  CategoryModel(
-    catTitle: "Shoes",
-    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0dIKkkJJK_7SQ0c2UKxrlH26SZVOHd2lkQ&s",
-  ),
-  CategoryModel(
-    catTitle: "Beauty",
-    catImage: "https://d2ati23fc66y9j.cloudfront.net/category-pages/sub_category-174021874143.jpg",
-  ),
-  CategoryModel(
-    catTitle: "Women's Fashion",
-    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnDwzDBvZLhMM7HfWhB9-LrZfJ-OxaUg321Q&s",
-  ),
-  CategoryModel(
-    catTitle: "Jewelery",
-    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQepTfkO-SMGwTD-OPOi1ZJ5LD3qCWKdp2hwQ&s",
-  ),
-  CategoryModel(
-    catTitle: "Men's Fashion",
-    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzs3u51Fh2RHYmeafoZ9jA2qCB-iqGDOHcRw&s",
-  ),
-  CategoryModel(
-    catTitle: "Women's Fashion",
-    catImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnDwzDBvZLhMM7HfWhB9-LrZfJ-OxaUg321Q&s",
-  ),
-  CategoryModel(
-    catTitle: "Beauty",
-    catImage: "https://d2ati23fc66y9j.cloudfront.net/category-pages/sub_category-174021874143.jpg",
-  ),
-];
+class CatModel {
+  String? id;
+  String? name;
+  String? status;
+  String? createdAt;
+  String? updatedAt;
+
+  CatModel({this.id, this.name, this.status, this.createdAt, this.updatedAt});
+
+  CatModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['status'] = this.status;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}

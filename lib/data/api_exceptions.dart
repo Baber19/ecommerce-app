@@ -1,42 +1,45 @@
-class AppExceptions implements Exception {
-  String exceptionTitle, exceptionMsg;
+class AppException implements Exception {
+  String title, msg;
 
-  AppExceptions({required this.exceptionTitle, required this.exceptionMsg});
+  AppException({required this.title, required this.msg});
 
   @override
   String toString() {
-    // TODO: implement toString
-    return "$exceptionTitle : $exceptionMsg";
+    return "$title: $msg";
   }
 }
 
-class NoInternetException extends AppExceptions {
-  NoInternetException({required super.exceptionMsg})
-    : super(exceptionTitle: "No internet connection");
+class NoInternetException extends AppException {
+  NoInternetException({required super.msg})
+      : super(title: "No Internet");
 }
 
-class BadRequestException extends AppExceptions {
-  BadRequestException({required super.exceptionMsg})
-    : super(exceptionTitle: "Bad Request");
+class BadRequestException extends AppException {
+  BadRequestException({required super.msg})
+      : super(title: "Bad Request");
 }
 
-class UnauthorizedException extends AppExceptions {
-  UnauthorizedException({required super.exceptionMsg})
-    : super(exceptionTitle: "Unauthorized");
+class UnauthorisedException extends AppException {
+  UnauthorisedException({required super.msg})
+      : super(title: "Unauthorised");
 }
 
-class InvalidInputException extends AppExceptions {
-  InvalidInputException({required super.exceptionMsg})
-    : super(exceptionTitle: "Invalid Input");
+class InvalidInputException extends AppException {
+  InvalidInputException({required super.msg})
+      : super(title: "Invalid Input");
 }
 
-class FetchDataException extends AppExceptions {
-  FetchDataException({required super.exceptionMsg})
-    : super(exceptionTitle: "Error During Communication");
+class FetchDataException extends AppException {
+  FetchDataException({required super.msg})
+      : super(title: "Error During Communication");
 }
 
-class ServerException extends AppExceptions {
-  ServerException({required super.exceptionMsg})
-      : super(exceptionTitle: "Server Error");
+class ServerException extends AppException {
+  ServerException({required super.msg})
+      : super(title: "Internal Server Error");
 }
 
+class NotFoundException extends AppException {
+  NotFoundException({required super.msg})
+      : super(title: "Resource Not Found");
+}

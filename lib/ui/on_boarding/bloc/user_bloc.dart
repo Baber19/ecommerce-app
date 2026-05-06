@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  ApiHelper apiHelper = ApiHelper();
+  APIHelper apiHelper = APIHelper();
   UserBloc({required this.apiHelper}) : super(UserInitialState()) {
     on<UserSignUpEvent>((event, emit) async {
       emit(UserLoadingState());
       try {
-        dynamic data = await apiHelper.postApi(url: AppUrls.signUpUrl,mBodyParameters: {
+        dynamic data = await apiHelper.postAPI(url: AppUrls.signUpUrl,mBodyParams: {
           "name" : event.name,
           "mobile_number" : event.mobNo,
           "email" : event.email,
@@ -31,7 +31,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserSignInEvent>((event, emit) async {
       emit(UserLoadingState());
       try{
-        dynamic mData =await apiHelper.postApi(url: AppUrls.loginUrl,mBodyParameters: {
+        dynamic mData =await apiHelper.postAPI(url: AppUrls.loginUrl,mBodyParams: {
           "email" : event.email,
           "password" : event.password
         },
