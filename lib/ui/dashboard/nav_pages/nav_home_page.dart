@@ -1,12 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecommercer_app/models/category_model.dart';
+import 'package:ecommercer_app/ui/dashboard/bloc/category/cat_bloc.dart';
+import 'package:ecommercer_app/ui/dashboard/bloc/category/cat_state.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_bloc.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_event.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_state.dart';
 import 'package:ecommercer_app/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/category/cat_event.dart';
 
 class NavHomePage extends StatefulWidget {
   NavHomePage({super.key});
@@ -23,7 +27,7 @@ class _NavHomePageState extends State<NavHomePage> {
     super.initState();
 
     context.read<ProductBloc>().add(FetchProductEvent());
-
+    context.read<CategoryBloc>().add(FetchCategoryEvent());
   }
 
   List<String> mBannerImages = [
@@ -161,6 +165,46 @@ class _NavHomePageState extends State<NavHomePage> {
               },
             ),
             SizedBox(height: 40),
+            SizedBox(
+              height: 100,
+              child: BlocBuilder<CategoryBloc, CategoryState>(
+                builder: (_, state) {
+                  if (state is CategoryLoadingState) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (state is CategoryErrorState) {
+                    return Text(state.errorMsg);
+                  }
+                  if (state is CategorySuccessState) {
+                    return state.mCategories!.isNotEmpty
+                        ? ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                            itemCount: state.mCategories!.length,
+                            itemBuilder: (_, index) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+                                    margin: EdgeInsets.only(right: 10),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Text(
+                                      state.mCategories![index].name ?? "",
+                                    ),
+                                  ),
+                                  Text(state.mCategories![index].name ?? ""),
+                                ],
+                              );
+                            },
+                          )
+                        : Center(child: Text("No categories found"));
+                  }
+                  return Container();
+                },
+              ),
+            ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -179,34 +223,37 @@ class _NavHomePageState extends State<NavHomePage> {
               ),
             ),
             SizedBox(height: 20),
-           Expanded(
-               child: BlocBuilder<ProductBloc, ProductState>(builder:(context,state){
-             if(state is ProductLoadingState){
-               return Center(child: CircularProgressIndicator(),);
-             }
-             if (state is ProductLoadedState) {
-               return GridView.builder(
-                 padding: EdgeInsets.symmetric(horizontal: 5),
-                 itemCount: state.products.length,
-                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                   crossAxisCount: 2,
-                   mainAxisSpacing: 10,
-                   crossAxisSpacing: 10,
-                   childAspectRatio: 0.75,
-                 ),
-                 itemBuilder: (_, index) {
-                   final product = state.products[index];
+            Expanded(
+              child: BlocBuilder<ProductBloc, ProductState>(
+                builder: (context, state) {
+                  if (state is ProductLoadingState) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (state is ProductLoadedState) {
+                    return GridView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      itemCount: state.products.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemBuilder: (_, index) {
+                        final product = state.products[index];
 
-                   return ProductCard(product: product);
-                 },
-               );
-             }
-             if(state is ProductErrorState){
-               return Center(child: Text(state.errorMsg),);
-             }
+                        return ProductCard(product: product);
+                      },
+                    );
+                  }
+                  if (state is ProductErrorState) {
+                    return Center(child: Text(state.errorMsg));
+                  }
 
-             return SizedBox();
-           } ))
+                  return SizedBox();
+                },
+              ),
+            ),
           ],
         ),
       ),
