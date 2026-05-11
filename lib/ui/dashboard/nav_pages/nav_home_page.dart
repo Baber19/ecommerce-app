@@ -8,6 +8,7 @@ import 'package:ecommercer_app/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../product/bloc/product_bloc.dart';
 import '../bloc/category/cat_event.dart';
 
 class NavHomePage extends StatefulWidget {
@@ -23,8 +24,7 @@ class _NavHomePageState extends State<NavHomePage> {
   @override
   void initState() {
     super.initState();
-
-    // context.read<ProductBloc>().add(FetchProductEvent());
+    context.read<ProductBloc>().add(FetchProductEvent());
     context.read<CategoryBloc>().add(FetchCategoryEvent());
   }
 
@@ -42,7 +42,7 @@ class _NavHomePageState extends State<NavHomePage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -56,7 +56,7 @@ class _NavHomePageState extends State<NavHomePage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            // SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 20),
               child: TextField(
@@ -89,7 +89,7 @@ class _NavHomePageState extends State<NavHomePage> {
               ),
             ),
 
-            SizedBox(height: 25),
+            SizedBox(height: 10),
             StatefulBuilder(
               builder: (context, sS) {
                 return SizedBox(
@@ -105,7 +105,7 @@ class _NavHomePageState extends State<NavHomePage> {
                               horizontal: 11.0,
                             ),
                             child: Container(
-                              height: 220,
+                              height: 180,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
@@ -162,9 +162,9 @@ class _NavHomePageState extends State<NavHomePage> {
                 );
               },
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             SizedBox(
-              height: 100,
+              height: 70,
               child: BlocBuilder<CategoryBloc, CategoryState>(
                 builder: (_, state) {
                   if (state is CategoryLoadingState) {
@@ -176,7 +176,7 @@ class _NavHomePageState extends State<NavHomePage> {
                   if (state is CategorySuccessState) {
                     return state.mCategories!.isNotEmpty
                         ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
+                            scrollDirection: Axis.horizontal,
                             itemCount: state.mCategories!.length,
                             itemBuilder: (_, index) {
                               return Column(
@@ -186,13 +186,16 @@ class _NavHomePageState extends State<NavHomePage> {
                                     width: 60,
                                     margin: EdgeInsets.only(right: 10),
                                     decoration: BoxDecoration(
+                                      color: Colors.orange,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Text(
-                                      state.mCategories![index].name ?? "",
+                                    child: Center(
+                                      child: Text(
+                                        state.mCategories![index].name ?? "",
+                                      ),
                                     ),
                                   ),
-                                  Text(state.mCategories![index].name ?? ""),
+                                  // Text(state.mCategories![index].name ?? ""),
                                 ],
                               );
                             },
@@ -203,7 +206,7 @@ class _NavHomePageState extends State<NavHomePage> {
                 },
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -221,37 +224,35 @@ class _NavHomePageState extends State<NavHomePage> {
               ),
             ),
             SizedBox(height: 20),
-            // Expanded(
-            //   child: BlocBuilder<ProductBloc, ProductState>(
-            //     builder: (context, state) {
-            //       if (state is ProductLoadingState) {
-            //         return Center(child: CircularProgressIndicator());
-            //       }
-            //       if (state is ProductLoadedState) {
-            //         return GridView.builder(
-            //           padding: EdgeInsets.symmetric(horizontal: 5),
-            //           itemCount: state.products.length,
-            //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //             crossAxisCount: 2,
-            //             mainAxisSpacing: 10,
-            //             crossAxisSpacing: 10,
-            //             childAspectRatio: 0.75,
-            //           ),
-            //           itemBuilder: (_, index) {
-            //             final product = state.products[index];
-            //
-            //             return ProductCard(product: product);
-            //           },
-            //         );
-            //       }
-            //       if (state is ProductErrorState) {
-            //         return Center(child: Text(state.errorMsg));
-            //       }
-            //
-            //       return SizedBox();
-            //     },
-            //   ),
-            // ),
+            SizedBox(
+              child: BlocBuilder<ProductBloc, ProductState>(
+                builder: (_, state) {
+                  if (state is ProductLoadingState) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (state is ProductErrorState) {
+                    return Center(child: Text(state.errorMsg));
+                  }
+                  if (state is ProductLoadedState) {
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 0.7,
+                      ),
+                      itemBuilder: (_, index) {
+                        final product = state.products[index];
+                        return Container(
+
+                        );
+                      },
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ),
           ],
         ),
       ),
