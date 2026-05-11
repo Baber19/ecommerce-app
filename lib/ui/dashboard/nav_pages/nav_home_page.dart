@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:ecommercer_app/models/category_model.dart';
 import 'package:ecommercer_app/ui/dashboard/bloc/category/cat_bloc.dart';
 import 'package:ecommercer_app/ui/dashboard/bloc/category/cat_state.dart';
-import 'package:ecommercer_app/ui/product/bloc/product_bloc.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_event.dart';
 import 'package:ecommercer_app/ui/product/bloc/product_state.dart';
 import 'package:ecommercer_app/widgets/product_widget.dart';
@@ -26,7 +24,7 @@ class _NavHomePageState extends State<NavHomePage> {
   void initState() {
     super.initState();
 
-    context.read<ProductBloc>().add(FetchProductEvent());
+    // context.read<ProductBloc>().add(FetchProductEvent());
     context.read<CategoryBloc>().add(FetchCategoryEvent());
   }
 
@@ -223,37 +221,37 @@ class _NavHomePageState extends State<NavHomePage> {
               ),
             ),
             SizedBox(height: 20),
-            Expanded(
-              child: BlocBuilder<ProductBloc, ProductState>(
-                builder: (context, state) {
-                  if (state is ProductLoadingState) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if (state is ProductLoadedState) {
-                    return GridView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      itemCount: state.products.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemBuilder: (_, index) {
-                        final product = state.products[index];
-
-                        return ProductCard(product: product);
-                      },
-                    );
-                  }
-                  if (state is ProductErrorState) {
-                    return Center(child: Text(state.errorMsg));
-                  }
-
-                  return SizedBox();
-                },
-              ),
-            ),
+            // Expanded(
+            //   child: BlocBuilder<ProductBloc, ProductState>(
+            //     builder: (context, state) {
+            //       if (state is ProductLoadingState) {
+            //         return Center(child: CircularProgressIndicator());
+            //       }
+            //       if (state is ProductLoadedState) {
+            //         return GridView.builder(
+            //           padding: EdgeInsets.symmetric(horizontal: 5),
+            //           itemCount: state.products.length,
+            //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //             crossAxisCount: 2,
+            //             mainAxisSpacing: 10,
+            //             crossAxisSpacing: 10,
+            //             childAspectRatio: 0.75,
+            //           ),
+            //           itemBuilder: (_, index) {
+            //             final product = state.products[index];
+            //
+            //             return ProductCard(product: product);
+            //           },
+            //         );
+            //       }
+            //       if (state is ProductErrorState) {
+            //         return Center(child: Text(state.errorMsg));
+            //       }
+            //
+            //       return SizedBox();
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
