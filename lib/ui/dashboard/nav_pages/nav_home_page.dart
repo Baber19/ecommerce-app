@@ -12,7 +12,7 @@ import '../../product/bloc/product_bloc.dart';
 import '../bloc/category/cat_event.dart';
 
 class NavHomePage extends StatefulWidget {
-  NavHomePage({super.key});
+  const NavHomePage({super.key});
 
   @override
   State<NavHomePage> createState() => _NavHomePageState();
@@ -24,8 +24,10 @@ class _NavHomePageState extends State<NavHomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<ProductBloc>().add(FetchProductEvent());
-    context.read<CategoryBloc>().add(FetchCategoryEvent());
+   Future.microtask((){
+     context.read<ProductBloc>().add(FetchProductEvent());
+     context.read<CategoryBloc>().add(FetchCategoryEvent());
+   });
   }
 
   List<String> mBannerImages = [
@@ -224,7 +226,7 @@ class _NavHomePageState extends State<NavHomePage> {
               ),
             ),
             SizedBox(height: 20),
-            SizedBox(
+            Expanded(
               child: BlocBuilder<ProductBloc, ProductState>(
                 builder: (_, state) {
                   if (state is ProductLoadingState) {
@@ -235,6 +237,7 @@ class _NavHomePageState extends State<NavHomePage> {
                   }
                   if (state is ProductLoadedState) {
                     return GridView.builder(
+                      shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 12,
@@ -244,7 +247,33 @@ class _NavHomePageState extends State<NavHomePage> {
                       itemBuilder: (_, index) {
                         final product = state.products[index];
                         return Container(
-
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.grey.shade300),
+                          ),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(16),
+                                    topRight: Radius.circular(16),
+                                  ),
+                                  child: Image.network(
+                                    product.productImage,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  Text(product.productName),
+                                  Text(product.productPrice.toString())
+                                ],
+                              )
+                            ],
+                          ),
                         );
                       },
                     );

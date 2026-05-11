@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
         nextPage= AppRoutes.Dashboard_Route;
       }
 
-      Navigator.pushReplacementNamed(context, AppRoutes.Login_Route);
+      Navigator.pushReplacementNamed(context, nextPage);
     });
   }
   @override
