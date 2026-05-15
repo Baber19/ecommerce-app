@@ -1,1 +1,1 @@
-abstract class ProductDetailEvent{}
+abstract class ProductDetailState{}
