@@ -1,3 +1,4 @@
 abstract class ProductDetailState{}
 
-class ProductsInitialStaten extends ProductDetailState{}
+class ProductsInitialState extends ProductDetailState{}
+class ProductLoadingState extends ProductDetailState{}
